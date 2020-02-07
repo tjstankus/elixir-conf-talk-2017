@@ -19,6 +19,8 @@ defmodule Bowling do
     roll1 + roll2 + score(tail)
   end
 
-  def score([_|_]), do: 0 # incomplete frame
-  def score([]), do: 0 # no rolls
+  # incomplete frame
+  def score([_ | _]), do: 0
+  # no rolls
+  def score([]), do: 0
 end
