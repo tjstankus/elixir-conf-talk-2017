@@ -7,7 +7,7 @@ defmodule Bowling do
 
   def roll(game = %Bowling{}, pinfall) do
     rolls = append_pinfall(game.rolls, pinfall)
-    %{ game | rolls: rolls, score: score(rolls) }
+    %{game | rolls: rolls, score: score(rolls)}
   end
 
   # strike in last frame
@@ -22,19 +22,21 @@ defmodule Bowling do
 
   # spare
   def score([roll1, roll2, bonus | tail]) when roll1 + roll2 == 10 do
-                                                       10 + bonus + score([bonus | tail])
+    10 + bonus + score([bonus | tail])
   end
 
   # open frame
   def score([roll1, roll2 | tail]) when roll1 + roll2 < 10 do
-                                                roll1 + roll2 + score(tail)
+    roll1 + roll2 + score(tail)
   end
 
-  def score([_|_]), do: 0 # incomplete frame
-  def score([]), do: 0 # no rolls
+  # incomplete frame
+  def score([_ | _]), do: 0
+  # no rolls
+  def score([]), do: 0
 
   defp append_pinfall(rolls, pinfall) do
-    [ pinfall | Enum.reverse(rolls) ]
-    |> Enum.reverse
+    [pinfall | Enum.reverse(rolls)]
+    |> Enum.reverse()
   end
 end
